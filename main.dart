@@ -60,8 +60,4 @@ class CacheEntry {
 void main() {
   Cache cache = Cache();
   cache._printCache();
-
-  //cache.refer(6);
-  var line = stdin.readLineSync();
-  print(line.toString());
 }
