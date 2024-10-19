@@ -1,3 +1,5 @@
+import 'dart:convert';
+import 'dart:ffi';
 import 'dart:io';
 import 'dart:math';
 
@@ -7,12 +9,18 @@ class Cache {
   void generate() {
     final random = Random();
     final key = random.nextInt(10);
-    final value = _generateRandomString(4);
-    _entries.add(CacheEntry(key: key, value: value));
+
+    final value = StringBuffer();
+    const asciiDecoder = AsciiDecoder();
+    for (int i = 0; i < 5; i++) {
+      final randomIndex = random.nextInt(26) + 65;
+      value.write(asciiDecoder.convert([randomIndex]));
+    }
+    _entries.add(CacheEntry(key: key, value: value.toString()));
   }
 
   void fill() {
-    for (var i = 0; i < 6; i++) {
+    for (var i = 0; i < 5; i++) {
       generate();
     }
   }
@@ -71,7 +79,7 @@ void main() {
   Cache cache = Cache();
   cache._printCache();
 
-  cache.refer(6);
+  //cache.refer(6);
   var line = stdin.readLineSync();
   print(line.toString());
 }
