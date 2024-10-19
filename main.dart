@@ -27,32 +27,14 @@ class Cache {
 
   void refer(int key) {
     final entry = _entries.firstWhere((e) => e.key == key);
-    if (entry != null) {
-      print('Key: ${entry.key}, Value: ${entry.value}');
-      entry.referrals -= 1;
-      if (entry.referrals == 0) {
-        _entries.remove(entry);
-        generate();
-      } else {
-        _printCache();
-      }
+    print('Key: ${entry.key}, Value: ${entry.value}');
+    entry.referrals -= 1;
+    if (entry.referrals == 0) {
+      _entries.remove(entry);
+      generate();
     } else {
-      print('Entry not found with key $key');
       _printCache();
     }
-  }
-
-  String _generateRandomString(int length) {
-    const availableChars = 'qwertyuiopasdfghjklzxcvbnm';
-    final random = Random();
-    final randomString = StringBuffer();
-
-    for (int i = 0; i < length; i++) {
-      final randomIndex = random.nextInt(availableChars.length);
-      randomString.write(availableChars[randomIndex]);
-    }
-
-    return randomString.toString();
   }
 
   void _printCache() {
