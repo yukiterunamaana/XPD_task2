@@ -60,4 +60,6 @@ class CacheEntry {
 void main() {
   Cache cache = Cache();
   cache._printCache();
+  for (int i = 0; i < 5; i++) cache.refer(cache._entries[0].key);
+  cache._printCache();
 }
